@@ -30,15 +30,19 @@ public class DrawDarts extends View {
     }
 
     @Override
+    public void onSizeChanged (int wi, int he, int oldw, int oldh)
+    {
+        super.onSizeChanged(wi, he, oldw, oldh);
+        w = wi;
+        h = he;
+
+        if(w > h) maxRadius = h/2;
+        else maxRadius = w/2;
+        //maxRadius = 500;
+    }
+
+    @Override
     protected void onDraw(Canvas c) {
-
-        //width = c.getWidth();
-        //height = c.getHeight();
-        width = this.getWidth();
-        height = this.getHeight();
-        if(width > height) {maxRadius = height; h = width; w = height;}
-        else {maxRadius = width; h = height; w = width;}
-
 
         //Paint paint = new Paint();
         paint.setStyle(Paint.Style.FILL);
@@ -52,48 +56,48 @@ public class DrawDarts extends View {
         paint.setAntiAlias(true);
         paint.setColor(setRandomColor());
         float radius = maxRadius;
-        c.drawCircle(width/2, height/2, radius, paint);
+        c.drawCircle(w/2, h/2, radius, paint);
         RectF oval1 = new RectF(w/2 - radius, h/2 - radius, w/2 + radius, h/2 + radius);
         //рисуем сектора случайного цвета
         int startAngle = 0, sweepAngle = 45;
-        for (int i = 0; i<9; i++) {
+        for (int i = 0; i<8; i++) {
             paint.setColor(setRandomColor());
-            startAngle += 45;
-            sweepAngle += 45;
-            c.drawArc(oval1, startAngle, sweepAngle, false, paint);
+            startAngle = 45*i;
+            sweepAngle = startAngle + 45;
+            c.drawArc(oval1, startAngle, sweepAngle, true, paint);
         }
 
         // рисуем второй круг рандомного цвета
         paint.setColor(setRandomColor());
         radius = (float) (maxRadius*0.66);
-        c.drawCircle(width/2,height/2, radius, paint);
+        c.drawCircle(w/2,h/2, radius, paint);
         RectF oval2 = new RectF(w/2 - radius, h/2 - radius, w/2 + radius, h/2 + radius);
         //рисуем сектора случайного цвета
         startAngle = 0; sweepAngle = 45;
-        for (int i = 0; i<9; i++) {
+        for (int i = 0; i<8; i++) {
             paint.setColor(setRandomColor());
-            startAngle += 45;
-            sweepAngle += 45;
-            c.drawArc(oval2, startAngle, sweepAngle, false, paint);
+            startAngle = 45*i;
+            sweepAngle = startAngle + 45;
+            c.drawArc(oval2, startAngle, sweepAngle, true, paint);
         }
 
         // рисуем третий круг рандомного цвета
         paint.setColor(setRandomColor());
         radius = (float) (maxRadius*0.33);
-        c.drawCircle(width/2,height/2, radius, paint);
+        c.drawCircle(w/2,h/2, radius, paint);
         RectF oval3 = new RectF(w/2 - radius, h/2 - radius, w/2 + radius, h/2 + radius);
         //рисуем сектора случайного цвета
         startAngle = 0; sweepAngle = 45;
-        for (int i = 0; i<9; i++) {
+        for (int i = 0; i<8; i++) {
             paint.setColor(setRandomColor());
-            startAngle += 45;
-            sweepAngle += 45;
-            c.drawArc(oval3, startAngle, sweepAngle, false, paint);
+            startAngle = 45*i;
+            sweepAngle = startAngle + 45;
+            c.drawArc(oval3, startAngle, sweepAngle, true, paint);
         }
         //и черные линии сверху
         paint.setColor(Color.BLACK);
-        c.drawLine(width/2, 0, width/2, height, paint);
-        c.drawLine(0, height/2, width, height/2, paint);
+        c.drawLine(w/2, 0, w/2, h, paint);
+        c.drawLine(0, h/2, w, h/2, paint);
         c.drawLine(w/2 - maxRadius, h/2 - maxRadius, w/2 + maxRadius, h/2 + maxRadius, paint);
         c.drawLine(w/2 - maxRadius, h/2 + maxRadius, w/2 + maxRadius, h/2 - maxRadius, paint);
 

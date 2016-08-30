@@ -4,7 +4,10 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.view.Display;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 
 /**
  * Created by Host on 28.08.2016.
@@ -29,13 +32,21 @@ public class DrawCircles extends View {
     }
 
     @Override
+    public void onSizeChanged (int wi, int he, int oldw, int oldh)
+    {
+        super.onSizeChanged(wi, he, oldw, oldh);
+        width = wi;
+        height = he;
+
+        if(width > height) maxRadius = height/2;
+        else maxRadius = width/2;
+        //maxRadius = 500;
+    }
+
+    @Override
     protected void onDraw(Canvas c) {
         super.onDraw(c);
 
-        width = c.getWidth();
-        height = c.getHeight();
-        if(width > height) maxRadius = height;
-        else maxRadius = width;
 
         //Paint paint = new Paint();
         paint.setStyle(Paint.Style.FILL);
